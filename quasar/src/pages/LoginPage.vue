@@ -7,13 +7,13 @@
     >
       <q-input
           outlined
-          :model-value="email"
+          v-model="email"
           label="Email"
           rounded
       ></q-input>
       <q-input
           outlined
-          :model-value="password"
+          v-model="password"
           label="Password"
           rounded
           type="password"
