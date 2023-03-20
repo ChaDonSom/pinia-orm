@@ -1,12 +1,14 @@
 <template>
   <q-page padding>
     Home page
+    <pre>
   </q-page>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({
-  // name: 'PageName'
-})
+<script lang="ts" setup>
+import { useRepo } from 'pinia-orm'
+import User from 'src/models/User'
+
+const userRepo = useRepo(User)
+const users = userRepo.all()
 </script>
