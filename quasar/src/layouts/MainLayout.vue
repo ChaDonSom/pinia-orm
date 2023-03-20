@@ -5,11 +5,21 @@
         reveal
     >
       <q-toolbar>
+        <q-toolbar-title>Pinia ORM</q-toolbar-title>
         <q-space />
         <q-btn
             v-if="$route.path !== '/login'"
             to="/login"
             label="Login"
+            no-caps
+            flat
+            rounded
+            class="gt-xs"
+        />
+        <q-btn
+            v-if="$route.path !== '/register'"
+            to="/register"
+            label="Register"
             no-caps
             flat
             rounded
@@ -29,6 +39,15 @@
             >
               <q-item-section>
                 Login
+              </q-item-section>
+            </q-item>
+            <q-item
+                v-if="$route.path !== '/register'"
+                clickable
+                to="/register"
+            >
+              <q-item-section>
+                Register
               </q-item-section>
             </q-item>
           </q-menu>

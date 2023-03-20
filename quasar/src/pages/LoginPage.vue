@@ -3,8 +3,9 @@
     <q-form
         class="column items-center justify-center"
         autofocus
-        @submit="axios.post(API_DOMAIN + '/login', { email, password })"
+        @submit="axios.post(API_DOMAIN + '/login', { email, password, remember })"
     >
+      <p class="text-h4">Log in</p>
       <q-input
           outlined
           v-model="email"
@@ -19,6 +20,7 @@
           type="password"
           class="q-mt-sm"
       ></q-input>
+      <q-checkbox label="Remember me" v-model="remember" />
       <q-btn
           rounded
           no-caps
@@ -33,11 +35,12 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { api, axios } from 'src/boot/axios'
+import { axios } from 'src/boot/axios'
 
 const API_DOMAIN = process.env.API_DOMAIN
 
-axios.get(`${API_DOMAIN}/sanctum/csrf-cookie`).then(() => api.get(`${API_DOMAIN}/api/user`))
+axios.get(`${API_DOMAIN}/sanctum/csrf-cookie`)
 const email = ref('')
 const password = ref('')
+const remember = ref(false)
 </script>
