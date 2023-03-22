@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     Home page
-    <pre>
+    <pre>{{ users }}</pre>
   </q-page>
 </template>
 

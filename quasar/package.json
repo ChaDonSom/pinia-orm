@@ -13,6 +13,7 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^1.2.1",
     "dotenv": "^16.0.3",
+    "dotenv-expand": "^10.0.0",
     "pinia": "^2.0.11",
     "pinia-orm": "^1.5.1",
     "quasar": "^2.6.0",

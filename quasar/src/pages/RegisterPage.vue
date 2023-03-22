@@ -53,17 +53,19 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { api, axios } from 'src/boot/axios'
+import { axios } from 'src/boot/axios'
 import { useRouter } from 'vue-router'
 
 const API_DOMAIN = process.env.API_DOMAIN
+const router = useRouter()
 
-axios.get(`${API_DOMAIN}/sanctum/csrf-cookie`)
 const name = ref('Chase')
 const email = ref('chase@test.com')
 const password = ref('chasetest')
 const passwordConfirmation = ref('chasetest')
 const remember = ref(true)
+
+axios.get(`${API_DOMAIN}/sanctum/csrf-cookie`)
 
 async function submitRegister() {
   await axios.post(API_DOMAIN + '/register', {
@@ -73,7 +75,6 @@ async function submitRegister() {
     password_confirmation: passwordConfirmation.value,
     remember: remember.value
   })
-  await api.get('/user')
-  useRouter().replace('/home')
+  router.replace('/home')
 }
 </script>
