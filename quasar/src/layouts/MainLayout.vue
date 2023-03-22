@@ -27,7 +27,7 @@
         />
         <q-btn
             round
-            icon="more_vert"
+            icon="r_more_vert"
             flat
             class="lt-sm"
         >
