@@ -1,17 +1,17 @@
 <template>
   <q-page padding>
-    <q-form
+    <FormKit
         class="column items-center justify-center"
-        autofocus
-        @submit="submitRegister"
+        type="form"
+        v-model="form"
     >
       <p class="text-h4">Register</p>
-      <q-input
-          outlined
-          v-model="name"
-          label="Name"
-          rounded
-      ></q-input>
+      <FormKit
+        :type="fkqInput"
+        name="name"
+      >
+<template #label>Tdsfest dfs</template>
+      </FormKit>
       <q-input
           outlined
           v-model="email"
@@ -47,7 +47,8 @@
           class="q-mt-sm"
           type="submit"
       />
-    </q-form>
+    </FormKit>
+    <pre wrap>{{ form }}</pre>
   </q-page>
 </template>
 
@@ -55,9 +56,15 @@
 import { ref } from 'vue'
 import { axios } from 'src/boot/axios'
 import { useRouter } from 'vue-router'
+import { createInput, FormKit } from '@formkit/vue'
+import FormKitQInput from 'src/components/FormKitQInput.vue'
+
+const fkqInput = createInput(FormKitQInput)
 
 const API_DOMAIN = process.env.API_DOMAIN
 const router = useRouter()
+
+const form = ref({})
 
 const name = ref('Chase')
 const email = ref('chase@test.com')
