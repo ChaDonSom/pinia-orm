@@ -43,16 +43,16 @@ import { user } from 'src/stores/auth'
 const API_DOMAIN = process.env.API_DOMAIN
 const router = useRouter()
 
-const form = new Form({
+const form = ref(new Form({
   email: '',
   password: '',
   remember: false,
-})
+}))
 
 axios.get(`${API_DOMAIN}/sanctum/csrf-cookie`)
 
 async function submitLogin() {
-  await form.post(API_DOMAIN + '/login')
+  await form.value.post(API_DOMAIN + '/login')
   user.value = (await api.get('/user')).data
   router.replace('/home')
 }

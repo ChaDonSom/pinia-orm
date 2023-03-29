@@ -1,9 +1,9 @@
 <template>
   <q-page padding>
     Home page
-    <pre>{{ users }}</pre>
-    <pre>{{ user }}</pre>
-    <pre>{{ orionUsers }}</pre>
+    <pre>Pinia ORM users in userRepo: {{ users }}</pre>
+    <pre>Auth user: {{ user }}</pre>
+    <pre>Orion users: {{ orionUsers }}</pre>
   </q-page>
 </template>
 
@@ -12,7 +12,7 @@ import { useRepo } from 'pinia-orm'
 import UserModel from 'src/models/User'
 import { Orion } from "@tailflow/laravel-orion/lib/orion"
 import { Model } from "@tailflow/laravel-orion/lib/model"
-import { api } from 'boot/axios'
+import { user } from 'src/stores/auth'
 import { ref, onMounted, computed } from 'vue'
 import { AuthDriver } from '@tailflow/laravel-orion/lib/drivers/default/enums/authDriver';
 
@@ -39,8 +39,4 @@ class User extends Model<{
 const userRepo = useRepo(UserModel)
 const users = computed(() => userRepo.all())
 const orionUsers = ref<User[]|null>(null)
-const user = ref(null)
-onMounted(async () => {
-  user.value = (await api.get('/user')).data
-})
 </script>

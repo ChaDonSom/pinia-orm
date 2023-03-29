@@ -57,22 +57,23 @@
 import { axios } from 'src/boot/axios'
 import { useRouter } from 'vue-router'
 import Form from 'vform'
+import { ref } from 'vue'
 
 const API_DOMAIN = process.env.API_DOMAIN
 const router = useRouter()
 
-const form = new Form({
+const form = ref(new Form({
   name: 'Chase',
   email: 'chase@test.com',
   password: 'chasetest',
   password_confirmation: 'chasetest',
   remember: true,
-})
+}))
 
 axios.get(`${API_DOMAIN}/sanctum/csrf-cookie`)
 
 async function submitRegister() {
-  await form.post(API_DOMAIN + '/register')
+  await form.value.post(API_DOMAIN + '/register')
   router.replace('/home')
 }
 </script>
