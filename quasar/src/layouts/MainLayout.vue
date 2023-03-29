@@ -7,51 +7,10 @@
       <q-toolbar>
         <q-toolbar-title>Pinia ORM</q-toolbar-title>
         <q-space />
-        <q-btn
-            v-if="$route.path !== '/login'"
-            to="/login"
-            label="Login"
-            no-caps
-            flat
-            rounded
-            class="gt-xs"
-        />
-        <q-btn
-            v-if="$route.path !== '/register'"
-            to="/register"
-            label="Register"
-            no-caps
-            flat
-            rounded
-            class="gt-xs"
-        />
-        <q-btn
-            round
-            icon="r_more_vert"
-            flat
-            class="lt-sm"
-        >
-          <q-menu auto-close>
-            <q-item
-                v-if="$route.path !== '/login'"
-                clickable
-                to="/login"
-            >
-              <q-item-section>
-                Login
-              </q-item-section>
-            </q-item>
-            <q-item
-                v-if="$route.path !== '/register'"
-                clickable
-                to="/register"
-            >
-              <q-item-section>
-                Register
-              </q-item-section>
-            </q-item>
-          </q-menu>
-        </q-btn>
+        <main-layout-guest-nav      :user="user" />
+        <main-layout-guest-nav-menu :user="user" />
+        <main-layout-user-nav       :user="user" @logout="logout" />
+        <main-layout-user-nav-menu  :user="user" @logout="logout" />
       </q-toolbar>
     </q-header>
 
@@ -60,3 +19,34 @@
     </q-page-container>
   </q-layout>
 </template>
+
+<script lang="ts" setup>
+import { api, axios } from 'src/boot/axios'
+import MainLayoutGuestNavMenu from 'src/layouts/MainLayout/MainLayoutGuestNavMenu.vue'
+import MainLayoutGuestNav from 'src/layouts/MainLayout/MainLayoutGuestNav.vue'
+import MainLayoutUserNavMenu from 'src/layouts/MainLayout/MainLayoutUserNavMenu.vue'
+import MainLayoutUserNav from 'src/layouts/MainLayout/MainLayoutUserNav.vue'
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { user } from 'src/stores/auth'
+import { isAxiosError } from 'axios'
+
+onMounted(async () => {
+  user.value = (await api.get('/user')).data
+})
+
+const router = useRouter()
+const API_DOMAIN = process.env.API_DOMAIN
+axios.get(`${API_DOMAIN}/sanctum/csrf-cookie`)
+async function logout() {
+  await axios.post(API_DOMAIN + '/logout')
+  try {
+    user.value = (await api.get('/user')).data
+  } catch (e) {
+    if (isAxiosError(e) && e.response?.status === 401) {
+      user.value = undefined
+    }
+    router.replace('/')
+  }
+}
+</script>

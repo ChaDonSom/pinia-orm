@@ -54,14 +54,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, markRaw } from 'vue'
 import { axios } from 'src/boot/axios'
 import { useRouter } from 'vue-router'
-import { createInput, FormKit } from '@formkit/vue'
-import FormKitQInput from 'src/components/FormKitQInput.vue'
 import Form from 'vform'
-
-const fkqInput = createInput(FormKitQInput)
 
 const API_DOMAIN = process.env.API_DOMAIN
 const router = useRouter()
