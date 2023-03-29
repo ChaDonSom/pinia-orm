@@ -12,12 +12,14 @@
   "dependencies": {
     "@formkit/vue": "^0.16.4",
     "@quasar/extras": "^1.0.0",
+    "@tailflow/laravel-orion": "^3.4.0",
     "axios": "^1.2.1",
     "dotenv": "^16.0.3",
     "dotenv-expand": "^10.0.0",
     "pinia": "^2.0.11",
     "pinia-orm": "^1.5.1",
     "quasar": "^2.6.0",
+    "vform": "^2.1.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
   },
